@@ -37,7 +37,7 @@ class SplashFragment : Fragment() {
                 val navController = navHostFragment.navController
 
                 // Set new nav graph (home)
-                navController.setGraph(R.navigation.main_nav_graph)
+                navController.setGraph(R.navigation.owner_nav_graph)
 
             },500)
         }
@@ -50,7 +50,7 @@ class SplashFragment : Fragment() {
                 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
             }
             binding.SplashFragmentBtnSignUp.setOnClickListener {
-                findNavController().navigate(R.id.action_roleAssignFragment_to_signUpFragment)
+//                findNavController().navigate(R.id.action_roleAssignFragment_to_signUpFragment)
             }
 
         }

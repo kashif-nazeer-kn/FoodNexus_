@@ -56,4 +56,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.androidx.lifecycle.common.java8)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+
+    implementation(libs.ssp.android)
+    implementation(libs.sdp.android)
 }

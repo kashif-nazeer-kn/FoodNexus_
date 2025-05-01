@@ -23,17 +23,25 @@
         android:label="fragment_role_assign"
         tools:layout="@layout/fragment_role_assign" >
         <action
-            android:id="@+id/action_roleAssignFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            android:id="@+id/action_roleAssignFragment_to_ownerSignUpFragment2"
+            app:destination="@id/ownerSignUpFragment" />
+        <action
+            android:id="@+id/action_roleAssignFragment_to_staffSignUpFragment"
+            app:destination="@id/staffSignUpFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.example.foodnexus.SignUpFragment"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.foodnexus.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/ownerSignUpFragment"
+        android:name="com.example.foodnexus.OwnerSignUpFragment"
+        android:label="fragment_owner_sign_up"
+        tools:layout="@layout/fragment_owner_sign_up" />
+    <fragment
+        android:id="@+id/staffSignUpFragment"
+        android:name="com.example.foodnexus.StaffSignUpFragment"
+        android:label="fragment_staff_sign_up"
+        tools:layout="@layout/fragment_staff_sign_up" />
 </navigation>
