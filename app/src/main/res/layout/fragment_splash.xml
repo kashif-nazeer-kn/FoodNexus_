@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".SplashFragment"
+    tools:context=".Fragments.SplashFragment"
     android:padding="20dp">
 
     <ImageView
@@ -19,6 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/SplashFragmentBtnLogin"
         android:layout_width="match_parent"
@@ -30,11 +31,13 @@
         android:background="@drawable/bg_btn"
         android:textColor="@color/black"
         android:layout_marginBottom="5dp"
+        android:visibility="invisible"
         />
     <TextView
         android:id="@+id/SplashFragmentTvOr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:text="Or"
         app:layout_constraintBottom_toTopOf="@+id/SplashFragmentBtnSignUp"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/bg_btn"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

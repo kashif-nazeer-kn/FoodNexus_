@@ -1,16 +1,17 @@
-package com.example.foodnexus
+package com.example.foodnexus.Fragments
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.example.foodnexus.R
 import com.example.foodnexus.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
@@ -21,11 +22,11 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding=FragmentSplashBinding.inflate(layoutInflater)
-        preferences=requireContext().getSharedPreferences("Login Check",Context.MODE_PRIVATE)
-        binding.SplashFragmentBtnLogin.visibility=View.GONE
-        binding.SplashFragmentBtnSignUp.visibility=View.GONE
-        binding.SplashFragmentTvOr.visibility=View.GONE
+        binding= FragmentSplashBinding.inflate(layoutInflater)
+        preferences=requireContext().getSharedPreferences("Login Check", Context.MODE_PRIVATE)
+        binding.SplashFragmentBtnLogin.visibility= View.GONE
+        binding.SplashFragmentBtnSignUp.visibility= View.GONE
+        binding.SplashFragmentTvOr.visibility= View.GONE
         val isLogin=preferences.getBoolean("isLogin",false)
 
         if(isLogin)
@@ -37,20 +38,20 @@ class SplashFragment : Fragment() {
                 val navController = navHostFragment.navController
 
                 // Set new nav graph (home)
-                navController.setGraph(R.navigation.owner_nav_graph)
+//                navController.setGraph(R.navigation.owner_nav_graph)
 
             },500)
         }
         else {
-            binding.SplashFragmentBtnLogin.visibility=View.VISIBLE
-            binding.SplashFragmentBtnSignUp.visibility=View.VISIBLE
-            binding.SplashFragmentTvOr.visibility=View.VISIBLE
+            binding.SplashFragmentBtnLogin.visibility= View.VISIBLE
+            binding.SplashFragmentBtnSignUp.visibility= View.VISIBLE
+            binding.SplashFragmentTvOr.visibility= View.VISIBLE
 
             binding.SplashFragmentBtnLogin.setOnClickListener {
                 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
             }
             binding.SplashFragmentBtnSignUp.setOnClickListener {
-//                findNavController().navigate(R.id.action_roleAssignFragment_to_signUpFragment)
+                findNavController().navigate(R.id.action_splashFragment_to_roleAssignFragment)
             }
 
         }

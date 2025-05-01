@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.foodnexus.Fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_roleAssignFragment"
+            app:destination="@id/roleAssignFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_restaurantMenuFragment"
+            app:destination="@id/restaurantMenuFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/roleAssignFragment"
+        android:name="com.example.foodnexus.Fragments.RoleAssignFragment"
+        android:label="fragment_role_assign"
+        tools:layout="@layout/fragment_role_assign" >
+        <action
+            android:id="@+id/action_roleAssignFragment_to_ownerSignUpFragment"
+            app:destination="@id/ownerSignUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.foodnexus.Fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_restaurantMenuFragment"
+            app:destination="@id/restaurantMenuFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_ownerSignUpFragment"
+            app:destination="@id/ownerSignUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownerSignUpFragment"
+        android:name="com.example.foodnexus.Fragments.OwnerSignUpFragment"
+        android:label="fragment_owner_sign_up"
+        tools:layout="@layout/fragment_owner_sign_up" >
+        <action
+            android:id="@+id/action_ownerSignUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_ownerSignUpFragment_to_restaurantMenuFragment"
+            app:destination="@id/restaurantMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantMenuFragment"
+        android:name="com.example.foodnexus.Fragments.RestaurantMenuFragment"
+        android:label="fragment_restaurant_menu"
+        tools:layout="@layout/fragment_restaurant_menu" />
+</navigation>
