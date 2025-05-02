@@ -66,6 +66,16 @@
                 android:padding="@dimen/_5sdp"
                 />
             <EditText
+                android:id="@+id/SignupFragmentEtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Email"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:background="@drawable/bg_edit_text"
+                android:textColor="@color/black"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_7sdp"/>
+            <EditText
                 android:id="@+id/SignupFragmentEtRestaurantName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,26 +96,8 @@
                 android:textColor="@color/black"
                 android:padding="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_7sdp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/SignupFragmentEtId"
-                android:hint="Provided Id"
-                android:layout_marginHorizontal="@dimen/_15sdp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:padding="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_7sdp" />
-            <EditText
-                android:id="@+id/SignupFragmentEtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter Email"
-                android:layout_marginHorizontal="@dimen/_15sdp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:padding="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_7sdp"/>
+
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

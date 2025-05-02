@@ -22,13 +22,11 @@ class OwnerSignUpFragment : Fragment() {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
-    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
-        preferences=requireContext().getSharedPreferences("Details", Context.MODE_PRIVATE)
 
         progressDialog = Dialog(requireContext())
         progressDialog.setContentView(R.layout.progress_bar)
@@ -48,10 +46,6 @@ class OwnerSignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.SignupFragmentTvLoginLink.setOnClickListener {
             findNavController().navigate(R.id.action_ownerSignUpFragment_to_loginFragment)
-        }
-        binding.SignupFragmentBtnSignUp.setOnLongClickListener {
-            findNavController().navigate(R.id.action_ownerSignUpFragment_to_restaurantMenuFragment)
-            true
         }
 
         binding.SignupFragmentBtnSignUp.setOnClickListener {
@@ -74,10 +68,7 @@ class OwnerSignUpFragment : Fragment() {
                     ?.addOnSuccessListener {
                         saveUserToFirestore()
                         findNavController().navigate(R.id.action_ownerSignUpFragment_to_loginFragment)
-                        preferences.edit().apply(){
-                            putString("userId",userId)
-                            apply()
-                        }
+
                     }
                     ?.addOnFailureListener { e ->
                         Utils.showToast(
@@ -102,14 +93,16 @@ class OwnerSignUpFragment : Fragment() {
             "Phone Number" to binding.SignupFragmentEtPhoneNumber.text.toString().trim(),
             "Restaurant Name" to binding.SignupFragmentEtRestaurantName.text.toString().trim(),
             "Address" to binding.SignupFragmentEtAddress.text.toString().trim(),
-            "Provided ID" to binding.SignupFragmentEtId.text.toString().trim()
+            "Role" to "Owner"
         )
 
         db.collection("Restaurants")
             .document(uid)
             .set(userMap)
             .addOnSuccessListener {
-                Utils.showToast(requireContext(), "Account successfully created Please Login")
+
+                        Utils.showToast(requireContext(), "Account successfully created Please Login")
+
             }
             .addOnFailureListener { e ->
                 Utils.showToast(requireContext(), "Failed to save user data: ${e.message}")
@@ -117,6 +110,9 @@ class OwnerSignUpFragment : Fragment() {
             .addOnCompleteListener {
                 Utils.hideProgress(progressDialog)
             }
+
+
+
     }
 
     private fun validateUser(): Boolean {
@@ -152,10 +148,6 @@ class OwnerSignUpFragment : Fragment() {
                 }
                 SignupFragmentEtAddress.text.toString().trim().isEmpty() -> {
                     SignupFragmentEtAddress.error = "Please enter your address"
-                    return false
-                }
-                SignupFragmentEtId.text.toString().trim().isEmpty() -> {
-                    SignupFragmentEtId.error = "Please enter your ID"
                     return false
                 }
                 else -> return true

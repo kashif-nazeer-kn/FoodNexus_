@@ -19,6 +19,12 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_waiterTableManageFragment"
+            app:destination="@id/waiterTableManageFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_chefOrderReceivingFragment"
+            app:destination="@id/chefOrderReceivingFragment" />
     </fragment>
     <fragment
         android:id="@+id/roleAssignFragment"
@@ -28,6 +34,9 @@
         <action
             android:id="@+id/action_roleAssignFragment_to_ownerSignUpFragment"
             app:destination="@id/ownerSignUpFragment" />
+        <action
+            android:id="@+id/action_roleAssignFragment_to_staffSignUpFragment"
+            app:destination="@id/staffSignUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -38,8 +47,14 @@
             android:id="@+id/action_loginFragment_to_restaurantMenuFragment"
             app:destination="@id/restaurantMenuFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_ownerSignUpFragment"
-            app:destination="@id/ownerSignUpFragment" />
+            android:id="@+id/action_loginFragment_to_roleAssignFragment"
+            app:destination="@id/roleAssignFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_waiterTableManageFragment"
+            app:destination="@id/waiterTableManageFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_chefOrderReceivingFragment"
+            app:destination="@id/chefOrderReceivingFragment" />
     </fragment>
     <fragment
         android:id="@+id/ownerSignUpFragment"
@@ -57,5 +72,40 @@
         android:id="@+id/restaurantMenuFragment"
         android:name="com.example.foodnexus.Fragments.RestaurantMenuFragment"
         android:label="fragment_restaurant_menu"
-        tools:layout="@layout/fragment_restaurant_menu" />
+        tools:layout="@layout/fragment_restaurant_menu" >
+        <action
+            android:id="@+id/action_restaurantMenuFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_restaurantMenuFragment_to_resturantsSalesFragment"
+            app:destination="@id/resturantsSalesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffSignUpFragment"
+        android:name="com.example.foodnexus.StaffSignUpFragment"
+        android:label="fragment_staff_sign_up"
+        tools:layout="@layout/fragment_staff_sign_up" >
+        <action
+            android:id="@+id/action_staffSignUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/waiterTableManageFragment"
+        android:name="com.example.foodnexus.WaiterTableManageFragment"
+        android:label="fragment_waiter_table_manage"
+        tools:layout="@layout/fragment_waiter_table_manage" />
+    <fragment
+        android:id="@+id/chefOrderReceivingFragment"
+        android:name="com.example.foodnexus.ChefOrderReceivingFragment"
+        android:label="fragment_chef_order_receiving"
+        tools:layout="@layout/fragment_chef_order_receiving" />
+    <fragment
+        android:id="@+id/resturantsSalesFragment"
+        android:name="com.example.foodnexus.ResturantsSalesFragment"
+        android:label="fragment_resturants_sales"
+        tools:layout="@layout/fragment_resturants_sales" >
+        <action
+            android:id="@+id/action_resturantsSalesFragment_to_restaurantMenuFragment"
+            app:destination="@id/restaurantMenuFragment" />
+    </fragment>
 </navigation>

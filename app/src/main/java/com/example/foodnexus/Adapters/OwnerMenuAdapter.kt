@@ -26,11 +26,12 @@ class OwnerMenuAdapter(
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val itemName:TextView=itemView.findViewById(R.id.TvItemName)
         val itemRecipe:TextView=itemView.findViewById(R.id.TvRecipe)
+        val itemPrice:TextView=itemView.findViewById(R.id.TvPrice)
         val itemMenu: ImageButton = itemView.findViewById(R.id.OwnerMenu)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.owner_menu,parent,false)
+        val view=LayoutInflater.from(parent.context).inflate(R.layout.owner_menu_recycler_view,parent,false)
 
         return ViewHolder(view)
     }
@@ -44,6 +45,7 @@ class OwnerMenuAdapter(
 
         holder.itemName.text=itemData.itemName
         holder.itemRecipe.text=itemData.itemRecipe
+        holder.itemPrice.text=itemData.itemPrice
 
         holder.itemMenu.setOnClickListener {
             showPopupMenu(holder.itemMenu, itemData, position)
@@ -95,17 +97,20 @@ class OwnerMenuAdapter(
 
         val itemNameEditText = dialog.findViewById<EditText>(R.id.DialogEtItemName)
         val itemRecipeEditText = dialog.findViewById<EditText>(R.id.DialogEtItemRecipe)
+        val itemPriceEditText = dialog.findViewById<EditText>(R.id.DialogEtItemPrice)
         val btnUpdate = dialog.findViewById<MaterialButton>(R.id.DialogBtnAdd)
 
         itemNameEditText.setText(itemData.itemName)
         itemRecipeEditText.setText(itemData.itemRecipe)
+        itemPriceEditText.setText(itemData.itemPrice)
         btnUpdate.text = "Update"
 
         btnUpdate.setOnClickListener {
             val newItemName = itemNameEditText.text.toString().trim()
-            val newItemRecipe = itemNameEditText.text.toString().trim()
+            val newItemRecipe = itemRecipeEditText.text.toString().trim()
+            val newItemPrice = itemPriceEditText.text.toString().trim()
 
-            if (newItemName.isEmpty() || newItemRecipe.isEmpty()) {
+            if (newItemName.isEmpty() || newItemRecipe.isEmpty()||newItemPrice.isEmpty()) {
                 Toast.makeText(fragment.requireContext(), "Please enter all details", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -113,13 +118,14 @@ class OwnerMenuAdapter(
             Toast.makeText(fragment.requireContext(), "Updating...", Toast.LENGTH_SHORT).show()
             val updatedData= hashMapOf(
                 "Item Name" to newItemName,
-                "Item Recipe" to newItemRecipe
+                "Item Recipe" to newItemRecipe,
+                "Item Price" to newItemPrice
             )
             firestore.collection("Restaurants").document(userId)
                 .collection("Menu").document(itemData.itemId)
                 .update(updatedData as Map<String, Any>)
                 .addOnSuccessListener {
-                    arrayList[position] = OwnerMenuStructure(itemData.itemId,newItemName, newItemRecipe)
+                    arrayList[position] = OwnerMenuStructure(itemData.itemId,newItemName, newItemRecipe,newItemPrice)
                     notifyItemChanged(position)
                     Toast.makeText(fragment.requireContext(), "Item Updated", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()

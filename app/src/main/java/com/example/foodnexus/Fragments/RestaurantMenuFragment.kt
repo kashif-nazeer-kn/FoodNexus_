@@ -7,9 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodnexus.Adapters.OwnerMenuAdapter
+import com.example.foodnexus.R
 import com.example.foodnexus.Structures.OwnerMenuStructure
 import com.example.foodnexus.Utils
 import com.example.foodnexus.databinding.FragmentRestaurantMenuBinding
@@ -44,13 +47,31 @@ class RestaurantMenuFragment : Fragment() {
         binding.RestaurantMenuImgBtnAdd.setOnClickListener {
             openAddItemDialog()
         }
+        binding.RestaurantMenuImgBtnMenu.setOnClickListener {
+            showPopupMenu(binding.RestaurantMenuImgBtnMenu)
+        }
+    }
+    private fun showPopupMenu(view: View) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.menuInflater.inflate(R.menu.resturant_menu, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.RestaurantSales -> findNavController().navigate(R.id.action_restaurantMenuFragment_to_resturantsSalesFragment)
+            }
+            true
+        }
+        popupMenu.show()
     }
 
     private fun init() {
         firestore = FirebaseFirestore.getInstance()
         preferences = requireContext().getSharedPreferences("Details", Context.MODE_PRIVATE)
-//        userId = preferences.getString("userId", "") ?: ""
-            userId="1234"
+        userId = preferences.getString("userId", null) ?: run {
+            Utils.showToast(requireContext(), "User ID not found. Please login again.")
+            findNavController().navigate(R.id.action_restaurantMenuFragment_to_loginFragment)
+            return
+        }
         arrayList = ArrayList()
         adapter = OwnerMenuAdapter(arrayList, this@RestaurantMenuFragment, userId)
 
@@ -59,7 +80,7 @@ class RestaurantMenuFragment : Fragment() {
 
         // Setup loading dialog
         loadingDialog = Dialog(requireContext()).apply {
-            setContentView(com.example.foodnexus.R.layout.progress_bar)
+            setContentView(R.layout.progress_bar)
             setCancelable(false)
         }
     }
@@ -74,19 +95,20 @@ class RestaurantMenuFragment : Fragment() {
         dialogBinding.DialogBtnAdd.setOnClickListener {
             val name = dialogBinding.DialogEtItemName.text.toString().trim()
             val recipe = dialogBinding.DialogEtItemRecipe.text.toString().trim()
+            val price = dialogBinding.DialogEtItemPrice.text.toString().trim()
 
-            if (name.isEmpty() || recipe.isEmpty()) {
+            if (name.isEmpty() || recipe.isEmpty()||price.isEmpty()) {
                 Utils.showToast(requireContext(), "Please fill out all fields.")
             } else {
                 dialog.dismiss()
-                addItem(name, recipe)
+                addItem(name, recipe,price)
             }
         }
 
         dialog.show()
     }
 
-    private fun addItem(name: String, recipe: String) {
+    private fun addItem(name: String, recipe: String,price:String) {
         try {
             Utils.showProgress(loadingDialog)
 
@@ -98,12 +120,13 @@ class RestaurantMenuFragment : Fragment() {
             val itemData = hashMapOf(
                 "Item Name" to name,
                 "Item Recipe" to recipe,
+                "Item Price" to price,
                 "Time Stamp" to System.currentTimeMillis()
             )
 
             itemRef.set(itemData)
                 .addOnSuccessListener {
-                    arrayList.add(OwnerMenuStructure(itemRef.id, name, recipe))
+                    arrayList.add(OwnerMenuStructure(itemRef.id, name, recipe,price))
                     adapter.notifyItemInserted(arrayList.lastIndex)
                     Utils.showToast(requireContext(), "Item added successfully.")
                     updateEmptyState()
@@ -134,7 +157,8 @@ class RestaurantMenuFragment : Fragment() {
                     val itemId = doc.id
                     val itemName = doc.getString("Item Name") ?: "Unknown"
                     val itemRecipe = doc.getString("Item Recipe") ?: "Unknown"
-                    arrayList.add(OwnerMenuStructure(itemId, itemName, itemRecipe))
+                    val itemPrice = doc.getString("Item Price") ?: "Unknown"
+                    arrayList.add(OwnerMenuStructure(itemId, itemName, itemRecipe,itemPrice))
                 }
                 adapter.notifyDataSetChanged()
                 updateEmptyState()
