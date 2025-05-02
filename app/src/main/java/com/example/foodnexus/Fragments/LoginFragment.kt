@@ -109,7 +109,9 @@ class LoginFragment : Fragment() {
 
                                     when (role) {
                                         "Owner" -> {
+                                            val restaurantName=document.getString("Restaurant Name")
                                             editor.putString("role",role)
+                                            editor.putString("restaurantName",restaurantName)
                                             editor.apply()
                                             findNavController().navigate(R.id.action_loginFragment_to_restaurantMenuFragment)
                                         }

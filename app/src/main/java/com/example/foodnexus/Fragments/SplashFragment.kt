@@ -50,7 +50,7 @@ class SplashFragment : Fragment() {
                 "Chef" -> findNavController().navigate(R.id.action_splashFragment_to_chefOrderReceivingFragment)
                 else -> showAuthOptions() // Fallback if role is not recognized
             }
-        }, 3000)
+        }, 500)
     }
 
     private fun showAuthOptions() {

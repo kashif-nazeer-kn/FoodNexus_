@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,7 @@ class RestaurantMenuFragment : Fragment() {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var userId: String
+    private lateinit var restaurantName: String
     private lateinit var arrayList: ArrayList<OwnerMenuStructure>
     private lateinit var adapter: OwnerMenuAdapter
     private lateinit var loadingDialog: Dialog
@@ -50,6 +52,7 @@ class RestaurantMenuFragment : Fragment() {
         binding.RestaurantMenuImgBtnMenu.setOnClickListener {
             showPopupMenu(binding.RestaurantMenuImgBtnMenu)
         }
+
     }
     private fun showPopupMenu(view: View) {
         val popupMenu = PopupMenu(requireContext(), view)
@@ -67,11 +70,13 @@ class RestaurantMenuFragment : Fragment() {
     private fun init() {
         firestore = FirebaseFirestore.getInstance()
         preferences = requireContext().getSharedPreferences("Details", Context.MODE_PRIVATE)
-        userId = preferences.getString("userId", null) ?: run {
-            Utils.showToast(requireContext(), "User ID not found. Please login again.")
-            findNavController().navigate(R.id.action_restaurantMenuFragment_to_loginFragment)
-            return
-        }
+
+        userId = preferences.getString("userId", null).toString()
+        restaurantName=preferences.getString("restaurantName",null).toString()
+
+        binding.RestaurantMenuTvName.setText(restaurantName)
+
+
         arrayList = ArrayList()
         adapter = OwnerMenuAdapter(arrayList, this@RestaurantMenuFragment, userId)
 
