@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/staffSignUpFragment"
-        android:name="com.example.foodnexus.StaffSignUpFragment"
+        android:name="com.example.foodnexus.Fragments.StaffSignUpFragment"
         android:label="fragment_staff_sign_up"
         tools:layout="@layout/fragment_staff_sign_up" >
         <action
@@ -91,17 +91,17 @@
     </fragment>
     <fragment
         android:id="@+id/waiterTableManageFragment"
-        android:name="com.example.foodnexus.WaiterTableManageFragment"
+        android:name="com.example.foodnexus.Fragments.WaiterTableManageFragment"
         android:label="fragment_waiter_table_manage"
         tools:layout="@layout/fragment_waiter_table_manage" />
     <fragment
         android:id="@+id/chefOrderReceivingFragment"
-        android:name="com.example.foodnexus.ChefOrderReceivingFragment"
+        android:name="com.example.foodnexus.Fragments.ChefOrderReceivingFragment"
         android:label="fragment_chef_order_receiving"
         tools:layout="@layout/fragment_chef_order_receiving" />
     <fragment
         android:id="@+id/resturantsSalesFragment"
-        android:name="com.example.foodnexus.ResturantsSalesFragment"
+        android:name="com.example.foodnexus.Fragments.RestaurantsSalesFragment"
         android:label="fragment_resturants_sales"
         tools:layout="@layout/fragment_resturants_sales" >
         <action

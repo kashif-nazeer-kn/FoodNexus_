@@ -1,8 +1,6 @@
 package com.example.foodnexus.Fragments
 
 import android.app.Dialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -82,7 +80,10 @@ class StaffSignUpFragment : Fragment() {
                         findNavController().navigate(R.id.action_staffSignUpFragment_to_loginFragment)
                     }
                     ?.addOnFailureListener { e ->
-                        Utils.showToast(requireContext(), "Failed to send verification email: ${e.message}")
+                        Utils.showToast(
+                            requireContext(),
+                            "Failed to send verification email: ${e.message}"
+                        )
                         Utils.hideProgress(progressDialog)
                     }
                 Utils.showToast(requireContext(), "Account created! Verification email sent.")
