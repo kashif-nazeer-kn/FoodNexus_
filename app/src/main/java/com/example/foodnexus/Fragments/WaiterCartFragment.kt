@@ -182,7 +182,8 @@ class WaiterCartFragment : Fragment() {
             .collection("Pending Orders")
             .add(orderData)
             .addOnSuccessListener { docRef ->
-                Toast.makeText(requireContext(), "Order sent to chef", Toast.LENGTH_SHORT).show()
+                Utils.showProgress(progressDialog)
+                Toast.makeText(requireContext(), "Please Wait Order sent to chef", Toast.LENGTH_SHORT).show()
                 listenOrderStatus(docRef.id)
             }
             .addOnFailureListener {
@@ -201,6 +202,7 @@ class WaiterCartFragment : Fragment() {
             val status = snapshot.getString("status").orEmpty()
             when (status) {
                 "accepted" -> {
+                    Utils.hideProgress(progressDialog)
                     // move to preparing and clear cart
                     orderDoc.update("status", "preparing")
                     clearCart()
@@ -208,6 +210,7 @@ class WaiterCartFragment : Fragment() {
                     Toast.makeText(requireContext(), "Order accepted, preparing now", Toast.LENGTH_SHORT).show()
                 }
                 "declined" -> {
+                    Utils.hideProgress(progressDialog)
                     orderListener?.remove()
                     Toast.makeText(requireContext(), "Order declined, you can modify and resend", Toast.LENGTH_SHORT).show()
                 }

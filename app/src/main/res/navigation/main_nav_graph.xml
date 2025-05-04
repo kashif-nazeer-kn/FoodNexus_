@@ -20,7 +20,7 @@
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_splashFragment_to_waiterTableManageFragment"
+            android:id="@+id/action_splashFragment_to_waiterMenuFragment"
             app:destination="@id/waiterMenuFragment" />
         <action
             android:id="@+id/action_splashFragment_to_chefOrderReceivingFragment"

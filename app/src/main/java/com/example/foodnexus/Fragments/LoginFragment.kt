@@ -126,7 +126,7 @@ class LoginFragment : Fragment() {
         when (role) {
             "Owner" -> {
                 val restDoc = db.collection("Restaurants").document(uid).get().await()
-                val restName = restDoc.getString("Restaurant Name") ?: ""
+                val restName = restDoc.getString("restaurantName") ?: ""
                 editor.putString("restaurantName", restName)
                 editor.putString("role","Owner")
                 editor.apply()
@@ -148,7 +148,7 @@ class LoginFragment : Fragment() {
                 editor.apply {
                     putString("ownerId", providedId)
                     putString("userId", uid)
-                    putString("name", staffDoc.getString("Name"))
+                    putString("name", staffDoc.getString("name"))
                     putString("role","Waiter")
                 }.apply()
                 findNavController().navigate(R.id.action_loginFragment_to_waiterMenuFragment)
@@ -170,8 +170,8 @@ class LoginFragment : Fragment() {
                 editor.apply {
                     putString("ownerId", providedId)
                     putString("userId", uid)
-                    putString("name", staffDoc.getString("Name"))
-                    putString("role","Waiter")
+                    putString("name", staffDoc.getString("name"))
+                    putString("role","Chef")
                 }.apply()
                 findNavController().navigate(R.id.action_loginFragment_to_chefOrderReceivingFragment)
             }
