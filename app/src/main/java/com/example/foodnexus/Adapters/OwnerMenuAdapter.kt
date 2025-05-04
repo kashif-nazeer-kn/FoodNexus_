@@ -1,6 +1,7 @@
 package com.example.foodnexus.Adapters
 
 import android.app.Dialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,14 +20,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class OwnerMenuAdapter(
     private var arrayList: ArrayList<OwnerMenuStructure>,
-    private var fragment: RestaurantMenuFragment,
+    private var context: Context,
     private var userId:String
 ): RecyclerView.Adapter<OwnerMenuAdapter.ViewHolder>() {
     private var firestore=FirebaseFirestore.getInstance()
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        val itemName:TextView=itemView.findViewById(R.id.TvItemName)
-        val itemRecipe:TextView=itemView.findViewById(R.id.TvRecipe)
-        val itemPrice:TextView=itemView.findViewById(R.id.TvPrice)
+        val itemName: TextView = itemView.findViewById(R.id.TvItemName)
+        val itemRecipe: TextView = itemView.findViewById(R.id.TvRecipe)
+        val itemPrice: TextView = itemView.findViewById(R.id.TvPrice)
         val itemMenu: ImageButton = itemView.findViewById(R.id.OwnerMenu)
     }
 
@@ -55,7 +56,7 @@ class OwnerMenuAdapter(
     }
 
     private fun showPopupMenu(view: View, itemData: OwnerMenuStructure, position: Int) {
-        val popupMenu = PopupMenu(fragment.requireContext(), view)
+        val popupMenu = PopupMenu(context, view)
         popupMenu.menuInflater.inflate(R.menu.opt_delete, popupMenu.menu)
 
         popupMenu.setOnMenuItemClickListener { menuItem ->
@@ -69,21 +70,21 @@ class OwnerMenuAdapter(
     }
 
     private fun confirmDelete(itemData: OwnerMenuStructure, position: Int) {
-        AlertDialog.Builder(fragment.requireContext()).apply {
+        AlertDialog.Builder(context).apply {
             setTitle("Delete Item")
             setMessage("Are you sure you want to delete this Item?")
             setPositiveButton("Delete") { _, _ ->
-                Toast.makeText(fragment.requireContext(), "Deleting...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Deleting...", Toast.LENGTH_SHORT).show()
                 firestore.collection("Restaurants").document(userId)
                     .collection("Menu").document(itemData.itemId)
                     .delete()
                     .addOnSuccessListener {
                         arrayList.removeAt(position)
                         notifyItemRemoved(position)
-                        Toast.makeText(fragment.requireContext(), "Item Deleted", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(fragment.requireContext(), "Failed to delete item", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Failed to delete item", Toast.LENGTH_SHORT).show()
                     }
             }
             setNegativeButton("Cancel", null)
@@ -92,7 +93,7 @@ class OwnerMenuAdapter(
     }
 
     private fun showUpdateDialog(itemData: OwnerMenuStructure, position: Int) {
-        val dialog = Dialog(fragment.requireContext())
+        val dialog = Dialog(context)
         dialog.setContentView(R.layout.add_resturant_menu_dialog)
 
         val itemNameEditText = dialog.findViewById<EditText>(R.id.DialogEtItemName)
@@ -111,11 +112,11 @@ class OwnerMenuAdapter(
             val newItemPrice = itemPriceEditText.text.toString().trim()
 
             if (newItemName.isEmpty() || newItemRecipe.isEmpty()||newItemPrice.isEmpty()) {
-                Toast.makeText(fragment.requireContext(), "Please enter all details", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please enter all details", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            Toast.makeText(fragment.requireContext(), "Updating...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Updating...", Toast.LENGTH_SHORT).show()
             val updatedData= hashMapOf(
                 "Item Name" to newItemName,
                 "Item Recipe" to newItemRecipe,
@@ -127,11 +128,11 @@ class OwnerMenuAdapter(
                 .addOnSuccessListener {
                     arrayList[position] = OwnerMenuStructure(itemData.itemId,newItemName, newItemRecipe,newItemPrice)
                     notifyItemChanged(position)
-                    Toast.makeText(fragment.requireContext(), "Item Updated", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Item Updated", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }
                 .addOnFailureListener {
-                    Toast.makeText(fragment.requireContext(), "Failed to update item", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Failed to update item", Toast.LENGTH_SHORT).show()
                 }
         }
         dialog.show()

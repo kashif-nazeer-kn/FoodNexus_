@@ -21,10 +21,13 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_splashFragment_to_waiterTableManageFragment"
-            app:destination="@id/waiterTableManageFragment" />
+            app:destination="@id/waiterMenuFragment" />
         <action
             android:id="@+id/action_splashFragment_to_chefOrderReceivingFragment"
             app:destination="@id/chefOrderReceivingFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_waiterCartFragment"
+            app:destination="@id/waiterCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/roleAssignFragment"
@@ -40,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.foodnexus.Fragments.LoginFragment"
+        android:name="com.example.foodnexus.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -50,15 +53,15 @@
             android:id="@+id/action_loginFragment_to_roleAssignFragment"
             app:destination="@id/roleAssignFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_waiterTableManageFragment"
-            app:destination="@id/waiterTableManageFragment" />
+            android:id="@+id/action_loginFragment_to_waiterMenuFragment"
+            app:destination="@id/waiterMenuFragment" />
         <action
             android:id="@+id/action_loginFragment_to_chefOrderReceivingFragment"
             app:destination="@id/chefOrderReceivingFragment" />
     </fragment>
     <fragment
         android:id="@+id/ownerSignUpFragment"
-        android:name="com.example.foodnexus.Fragments.OwnerSignUpFragment"
+        android:name="com.example.foodnexus.fragments.OwnerSignUpFragment"
         android:label="fragment_owner_sign_up"
         tools:layout="@layout/fragment_owner_sign_up" >
         <action
@@ -74,15 +77,12 @@
         android:label="fragment_restaurant_menu"
         tools:layout="@layout/fragment_restaurant_menu" >
         <action
-            android:id="@+id/action_restaurantMenuFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
             android:id="@+id/action_restaurantMenuFragment_to_resturantsSalesFragment"
             app:destination="@id/resturantsSalesFragment" />
     </fragment>
     <fragment
         android:id="@+id/staffSignUpFragment"
-        android:name="com.example.foodnexus.Fragments.StaffSignUpFragment"
+        android:name="com.example.foodnexus.fragments.StaffSignUpFragment"
         android:label="fragment_staff_sign_up"
         tools:layout="@layout/fragment_staff_sign_up" >
         <action
@@ -90,10 +90,17 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/waiterTableManageFragment"
-        android:name="com.example.foodnexus.Fragments.WaiterTableManageFragment"
-        android:label="fragment_waiter_table_manage"
-        tools:layout="@layout/fragment_waiter_table_manage" />
+        android:id="@+id/waiterMenuFragment"
+        android:name="com.example.foodnexus.Fragments.WaiterMenuFragment"
+        android:label="fragment_waiter_menu"
+        tools:layout="@layout/fragment_waiter_menu" >
+        <action
+            android:id="@+id/action_waiterMenuFragment_to_waiterCartFragment"
+            app:destination="@id/waiterCartFragment" />
+        <action
+            android:id="@+id/action_waiterMenuFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/chefOrderReceivingFragment"
         android:name="com.example.foodnexus.Fragments.ChefOrderReceivingFragment"
@@ -108,4 +115,9 @@
             android:id="@+id/action_resturantsSalesFragment_to_restaurantMenuFragment"
             app:destination="@id/restaurantMenuFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/waiterCartFragment"
+        android:name="com.example.foodnexus.Fragments.WaiterCartFragment"
+        android:label="fragment_waiter_cart"
+        tools:layout="@layout/fragment_waiter_cart" />
 </navigation>

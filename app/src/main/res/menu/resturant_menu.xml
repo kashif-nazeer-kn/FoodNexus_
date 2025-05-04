@@ -4,5 +4,8 @@
         android:id="@+id/RestaurantSales"
         android:title="View Sales"
         />
+    <item
+        android:id="@+id/copyId"
+        android:title="Copy User Id"/>
 
 </menu>

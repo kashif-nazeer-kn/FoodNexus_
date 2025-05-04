@@ -61,6 +61,15 @@ class RestaurantMenuFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.RestaurantSales -> findNavController().navigate(R.id.action_restaurantMenuFragment_to_resturantsSalesFragment)
+                R.id.copyId-> {
+
+                        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                        val clip = android.content.ClipData.newPlainText("User ID", userId)
+                        clipboard.setPrimaryClip(clip)
+                        Toast.makeText(requireContext(), "User ID copied to clipboard", Toast.LENGTH_SHORT).show()
+
+
+                }
             }
             true
         }
@@ -78,7 +87,7 @@ class RestaurantMenuFragment : Fragment() {
 
 
         arrayList = ArrayList()
-        adapter = OwnerMenuAdapter(arrayList, this@RestaurantMenuFragment, userId)
+        adapter = OwnerMenuAdapter(arrayList, requireContext(), userId)
 
         binding.RestaurantMenuRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.RestaurantMenuRecyclerView.adapter = adapter

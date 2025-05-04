@@ -21,6 +21,9 @@ class RoleAssignFragment : Fragment() {
         binding.RoleAssignFragmentBtnOwner.setOnClickListener {
             findNavController().navigate(R.id.action_roleAssignFragment_to_ownerSignUpFragment)
         }
+        binding.RoleAssignFragmentBtnStaff.setOnClickListener {
+            findNavController().navigate(R.id.action_roleAssignFragment_to_staffSignUpFragment)
+        }
 
         return binding.root
     }

@@ -1,37 +1,27 @@
-package com.example.foodnexus.Fragments
+package com.example.foodnexus.fragments
 
 import android.app.Dialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.foodnexus.R
 import com.example.foodnexus.Utils
 import com.example.foodnexus.databinding.FragmentOwnerSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 class OwnerSignUpFragment : Fragment() {
     private var _binding: FragmentOwnerSignUpBinding? = null
-    private lateinit var progressDialog: Dialog
     private val binding get() = _binding!!
 
-    private lateinit var db: FirebaseFirestore
-    private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        db = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
-
-        progressDialog = Dialog(requireContext())
-        progressDialog.setContentView(R.layout.progress_bar)
-        progressDialog.setCancelable(false)
-    }
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val progressDialog by lazy { createProgressDialog() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,15 +34,21 @@ class OwnerSignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.SignupFragmentTvLoginLink.setOnClickListener {
-            findNavController().navigate(R.id.action_ownerSignUpFragment_to_loginFragment)
-        }
 
-        binding.SignupFragmentBtnSignUp.setOnClickListener {
-            if (validateUser()) {
-                performSignUp()
+        binding.apply {
+            SignupFragmentTvLoginLink.setOnClickListener {
+                findNavController().navigate(R.id.action_ownerSignUpFragment_to_loginFragment)
+            }
+
+            SignupFragmentBtnSignUp.setOnClickListener {
+                if (validateInputs()) performSignUp()
             }
         }
+    }
+
+    private fun createProgressDialog(): Dialog = Dialog(requireContext()).apply {
+        setContentView(R.layout.progress_bar)
+        setCancelable(false)
     }
 
     private fun performSignUp() {
@@ -61,95 +57,72 @@ class OwnerSignUpFragment : Fragment() {
 
         Utils.showProgress(progressDialog)
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener { result ->
-                result.user?.sendEmailVerification()
-                    ?.addOnSuccessListener {
-                        saveUserToFirestore()
-                        findNavController().navigate(R.id.action_ownerSignUpFragment_to_loginFragment)
+        lifecycleScope.launchWhenStarted {
+            try {
+                // Create account
+                auth.createUserWithEmailAndPassword(email, password).await()
+                auth.currentUser?.sendEmailVerification()?.await()
 
-                    }
-                    ?.addOnFailureListener { e ->
-                        Utils.showToast(
-                            requireContext(),
-                            "Failed to send verification email: ${e.message}"
-                        )
-                        Utils.hideProgress(progressDialog)
-                    }
+                // Save to Firestore
+                saveUserToFirestore()
+
                 Utils.showToast(requireContext(), "Account created! Verification email sent.")
-            }
-            .addOnFailureListener { e ->
+                findNavController().navigate(R.id.action_ownerSignUpFragment_to_loginFragment)
+
+            } catch (e: Exception) {
+                Utils.showToast(requireContext(), "Sign up failed: ${e.localizedMessage}")
+            } finally {
                 Utils.hideProgress(progressDialog)
-                Utils.showToast(requireContext(), "Sign up failed: ${e.message}")
             }
+        }
     }
 
-    private fun saveUserToFirestore() {
+    private suspend fun saveUserToFirestore() {
         val uid = auth.currentUser?.uid ?: return
-        val userMap = mapOf(
-            "Owner Name" to binding.SignupFragmentEtOwnerName.text.toString().trim(),
-            "Email" to binding.SignupFragmentEtEmail.text.toString().trim(),
-            "Phone Number" to binding.SignupFragmentEtPhoneNumber.text.toString().trim(),
-            "Restaurant Name" to binding.SignupFragmentEtRestaurantName.text.toString().trim(),
-            "Address" to binding.SignupFragmentEtAddress.text.toString().trim(),
-            "Role" to "Owner"
+        val email = binding.SignupFragmentEtEmail.text.toString().trim()
+
+        val userData = mapOf(
+            "ownerName" to binding.SignupFragmentEtOwnerName.text.toString().trim(),
+            "email" to email,
+            "phoneNumber" to binding.SignupFragmentEtPhoneNumber.text.toString().trim(),
+            "restaurantName" to binding.SignupFragmentEtRestaurantName.text.toString().trim(),
+            "address" to binding.SignupFragmentEtAddress.text.toString().trim(),
+            "role" to "Owner"
         )
 
-        db.collection("Restaurants")
-            .document(uid)
-            .set(userMap)
-            .addOnSuccessListener {
+        val roleData = mapOf("role" to "Owner")
 
-                        Utils.showToast(requireContext(), "Account successfully created Please Login")
+        // Batch write for consistency
+        val batch = db.batch()
+        val restaurantRef = db.collection("Restaurants").document(uid)
+        val rolesRef = db.collection("Roles").document(email)
 
-            }
-            .addOnFailureListener { e ->
-                Utils.showToast(requireContext(), "Failed to save user data: ${e.message}")
-            }
-            .addOnCompleteListener {
-                Utils.hideProgress(progressDialog)
-            }
+        batch.set(restaurantRef, userData)
+        batch.set(rolesRef, roleData)
 
-
-
+        batch.commit().await()
     }
 
-    private fun validateUser(): Boolean {
+    private fun validateInputs(): Boolean {
         binding.apply {
-            when {
-                SignupFragmentEtOwnerName.text.toString().trim().isEmpty() -> {
-                    SignupFragmentEtOwnerName.error = "Please enter your name"
-                    return false
+            fun View.showError(msg: String) {
+                when (this) {
+                    is androidx.appcompat.widget.AppCompatEditText -> error = msg
+                    else -> {}
                 }
-                SignupFragmentEtEmail.text.toString().trim().isEmpty() -> {
-                    SignupFragmentEtEmail.error = "Please enter your email"
-                    return false
-                }
-                SignupFragmentEtPassword.text.toString().trim().isEmpty() -> {
-                    SignupFragmentEtPassword.error = "Please enter your password"
-                    return false
-                }
-                SignupFragmentEtConfirmPassword.text.toString().trim().isEmpty() -> {
-                    SignupFragmentEtConfirmPassword.error = "Please confirm your password"
-                    return false
-                }
-                SignupFragmentEtPassword.text.toString() != SignupFragmentEtConfirmPassword.text.toString() -> {
-                    SignupFragmentEtConfirmPassword.error = "Passwords do not match"
-                    return false
-                }
-                SignupFragmentEtPhoneNumber.text.toString().trim().isEmpty() -> {
-                    SignupFragmentEtPhoneNumber.error = "Please enter your phone number"
-                    return false
-                }
-                SignupFragmentEtRestaurantName.text.toString().trim().isEmpty() -> {
-                    SignupFragmentEtRestaurantName.error = "Please enter your restaurant name"
-                    return false
-                }
-                SignupFragmentEtAddress.text.toString().trim().isEmpty() -> {
-                    SignupFragmentEtAddress.error = "Please enter your address"
-                    return false
-                }
-                else -> return true
+            }
+
+            return when {
+                SignupFragmentEtOwnerName.text.isBlank() -> { SignupFragmentEtOwnerName.showError("Enter your name"); false }
+                SignupFragmentEtEmail.text.isBlank() -> { SignupFragmentEtEmail.showError("Enter your email"); false }
+                SignupFragmentEtPassword.text.isBlank() -> { SignupFragmentEtPassword.showError("Enter a password"); false }
+                SignupFragmentEtConfirmPassword.text.isBlank() -> { SignupFragmentEtConfirmPassword.showError("Confirm your password"); false }
+                binding.SignupFragmentEtPassword.text.toString() != binding.SignupFragmentEtConfirmPassword.text.toString() -> {
+                    SignupFragmentEtConfirmPassword.showError("Passwords do not match"); false }
+                SignupFragmentEtPhoneNumber.text.isBlank() -> { SignupFragmentEtPhoneNumber.showError("Enter phone number"); false }
+                SignupFragmentEtRestaurantName.text.isBlank() -> { SignupFragmentEtRestaurantName.showError("Enter restaurant name"); false }
+                SignupFragmentEtAddress.text.isBlank() -> { SignupFragmentEtAddress.showError("Enter address"); false }
+                else -> true
             }
         }
     }
