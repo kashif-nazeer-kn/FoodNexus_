@@ -33,9 +33,7 @@ class WaiterCartFragment : Fragment() {
 
     private lateinit var ownerId: String
     private lateinit var userId: String
-    private lateinit var CustomizedRecipe: String
     private var orderListener: ListenerRegistration? = null
-    private val progressDialog by lazy { createProgressDialog() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -48,8 +46,6 @@ class WaiterCartFragment : Fragment() {
         preferences = requireContext().getSharedPreferences("Details", Context.MODE_PRIVATE)
         userId = preferences.getString("userId", "") ?: ""
         ownerId = preferences.getString("ownerId", "") ?: ""
-        preferences=requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        CustomizedRecipe = preferences.getString("itemCustomizedRecipe", "") ?: ""
         setupRecyclerView()
         setupListeners()
         fetchCartItemsFromFirestore()
@@ -75,7 +71,7 @@ class WaiterCartFragment : Fragment() {
                     val name = doc.getString("itemName").orEmpty()
                     val price = doc.getString("itemPrice").orEmpty()
                     val quantity = doc.getLong("quantity")?.toInt() ?: 1
-                    val recipe = CustomizedRecipe
+                    val recipe = doc.getString("customizeRecipe").orEmpty()
                     arrayList.add(WaiterCartStructure(id, name, price, quantity,recipe))
                 }
                 waiterAdapter.notifyDataSetChanged()
@@ -121,7 +117,8 @@ class WaiterCartFragment : Fragment() {
             "itemId" to item.itemId,
             "itemName" to item.itemName,
             "itemPrice" to formatted,
-            "quantity" to item.quantity
+            "quantity" to item.quantity,
+            "customizeRecipe" to item.itemCustomizeRecipe
         )
 
         firestore.collection("Restaurants")
@@ -175,7 +172,8 @@ class WaiterCartFragment : Fragment() {
                     "itemId" to item.itemId,
                     "itemName" to item.itemName,
                     "quantity" to item.quantity,
-                    "itemPrice" to item.itemPrice
+                    "itemPrice" to item.itemPrice,
+                    "customizeRecipe" to item.itemCustomizeRecipe
                 )
             },
             "totalPrice" to "%.2f".format(total),
@@ -188,7 +186,6 @@ class WaiterCartFragment : Fragment() {
             .collection("Pending Orders")
             .add(orderData)
             .addOnSuccessListener { docRef ->
-                Utils.showProgress(progressDialog)
                 Toast.makeText(requireContext(), "Please Wait Order sent to chef", Toast.LENGTH_SHORT).show()
                 listenOrderStatus(docRef.id)
             }
@@ -208,7 +205,6 @@ class WaiterCartFragment : Fragment() {
             val status = snapshot.getString("status").orEmpty()
             when (status) {
                 "accepted" -> {
-                    Utils.hideProgress(progressDialog)
                     // move to preparing and clear cart
                     orderDoc.update("status", "preparing")
                     clearCart()
@@ -216,7 +212,6 @@ class WaiterCartFragment : Fragment() {
                     Toast.makeText(requireContext(), "Order accepted, preparing now", Toast.LENGTH_SHORT).show()
                 }
                 "declined" -> {
-                    Utils.hideProgress(progressDialog)
                     orderListener?.remove()
                     Toast.makeText(requireContext(), "Order declined, you can modify and resend", Toast.LENGTH_SHORT).show()
                 }

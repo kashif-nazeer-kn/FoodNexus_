@@ -5,5 +5,5 @@ data class WaiterCartStructure(
     val itemName : String,
     val itemPrice:String,
     var quantity:Int,
-    val itemRecipe:String
+    val itemCustomizeRecipe:String
 )

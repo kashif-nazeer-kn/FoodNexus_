@@ -26,8 +26,7 @@ class WaiterMenuAdapter(
 
 
     private val firestore = FirebaseFirestore.getInstance()
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-    val editor= sharedPreferences.edit()
+    private lateinit var customizeRecipe :String
     inner class MenuItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemName: TextView = view.findViewById(R.id.WaiterTvItemName)
         val itemRecipe: TextView = view.findViewById(R.id.WaiterTvRecipe)
@@ -60,11 +59,13 @@ class WaiterMenuAdapter(
                 val price = findViewById<TextView>(R.id.Price)
                 etItemName.text = menuItem.itemName
                 etItemRecipe.text = menuItem.itemRecipe
-                etCustomizedRecipe.hint = menuItem.itemRecipe
                 price.text = menuItem.itemPrice
                 show()
                 btnAddToCart.setOnClickListener {
-                    editor.putString("itemCustomizedRecipe", etCustomizedRecipe.text.toString())
+                    customizeRecipe=etCustomizedRecipe.text.toString().trim()
+
+                    Toast.makeText(context,customizeRecipe,Toast.LENGTH_SHORT).show()
+
                     handleAddToCart(menuItem)
                     dismiss()
                 }
@@ -100,7 +101,8 @@ class WaiterMenuAdapter(
             "itemId" to menuItem.itemId,
             "itemName" to menuItem.itemName,
             "itemPrice" to menuItem.itemPrice,
-            "quantity" to 1
+            "quantity" to 1,
+            "customizeRecipe" to customizeRecipe
         )
 
         cartRef.set(cartItem)

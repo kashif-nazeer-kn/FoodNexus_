@@ -29,7 +29,7 @@ class WaiterCartAdapter(
             val totalPrice = basePrice * item.quantity
             itemPrice.text = totalPrice.toString()
             itemQuantity.text = item.quantity.toString()
-            itemRecipe.text = item.itemRecipe
+            itemRecipe.text = item.itemCustomizeRecipe
             increaseButton.setOnClickListener { onIncreaseClicked(adapterPosition) }
             decreaseButton.setOnClickListener { onDecreaseClicked(adapterPosition) }
         }
