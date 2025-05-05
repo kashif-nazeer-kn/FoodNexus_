@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cartItemCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -98,5 +99,20 @@
                 android:src="@drawable/baseline_add_24"
                 android:contentDescription="Increase Quantity" />
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/ItemRecipeLayout"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_30sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/bg_relative_layout"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CartItemRecipe"
+                android:text=""
+                android:padding="@dimen/_3sdp"
+                />
+        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -85,12 +85,12 @@
 
         <!-- Add to Cart -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddToCart"
+            android:id="@+id/BtnCustomization"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add to Cart"
+            android:text="Customize"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:backgroundTint="@color/primaryColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
