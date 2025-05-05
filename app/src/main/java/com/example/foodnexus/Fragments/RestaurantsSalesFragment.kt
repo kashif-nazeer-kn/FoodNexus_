@@ -1,5 +1,6 @@
 package com.example.foodnexus.Fragments
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -63,6 +64,7 @@ class RestaurantsSalesFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun loadOrders() {
         Utils.showProgress(loadingDialog)
 

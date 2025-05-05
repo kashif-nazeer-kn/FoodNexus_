@@ -1,7 +1,9 @@
 package com.example.foodnexus.Adapters
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+
 class WaiterMenuAdapter(
     private val menuItems: List<WaiterMenuStructure>,
     private val context: Context,
@@ -21,13 +24,15 @@ class WaiterMenuAdapter(
     private val ownerId: String
 ) : RecyclerView.Adapter<WaiterMenuAdapter.MenuItemViewHolder>() {
 
-    private val firestore = FirebaseFirestore.getInstance()
 
+    private val firestore = FirebaseFirestore.getInstance()
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    val editor= sharedPreferences.edit()
     inner class MenuItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemName: TextView = view.findViewById(R.id.WaiterTvItemName)
         val itemRecipe: TextView = view.findViewById(R.id.WaiterTvRecipe)
         val itemPrice: TextView = view.findViewById(R.id.WaiterTvPrice)
-        val addButton: MaterialButton = view.findViewById(R.id.btnAddToCart)
+        val addButton: MaterialButton = view.findViewById(R.id.BtnCustomization)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuItemViewHolder {
@@ -42,12 +47,30 @@ class WaiterMenuAdapter(
         holder.itemName.text = menuItem.itemName
         holder.itemRecipe.text = menuItem.itemRecipe
         holder.itemPrice.text = menuItem.itemPrice
-
         holder.addButton.setOnClickListener {
-            handleAddToCart(menuItem)
+
+            Dialog(context).apply {
+                setContentView(R.layout.cutomize_order_layout)
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+                setCancelable(true)
+                val etItemName = findViewById<TextView>(R.id.CustomizeOrderEtItemName)
+                val etItemRecipe = findViewById<TextView>(R.id.CustomizeOrderEtItemRecipie)
+                val etCustomizedRecipe = findViewById<TextView>(R.id.CustomizeOrderEtCustomizedRecipie)
+                val btnAddToCart = findViewById<MaterialButton>(R.id.CustomizeOrderBtnAddToCart)
+                val price = findViewById<TextView>(R.id.Price)
+                etItemName.text = menuItem.itemName
+                etItemRecipe.text = menuItem.itemRecipe
+                etCustomizedRecipe.hint = menuItem.itemRecipe
+                price.text = menuItem.itemPrice
+                show()
+                btnAddToCart.setOnClickListener {
+                    editor.putString("itemCustomizedRecipe", etCustomizedRecipe.text.toString())
+                    handleAddToCart(menuItem)
+                    dismiss()
+                }
+            }
         }
     }
-
     private fun handleAddToCart(menuItem: WaiterMenuStructure) {
         val cartRef = firestore.collection("Restaurants")
             .document(ownerId)

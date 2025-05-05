@@ -1,5 +1,6 @@
 package com.example.foodnexus.Fragments
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import java.util.*
+import androidx.core.content.edit
 
 class WaiterCartFragment : Fragment() {
     private var _binding: FragmentWaiterCartBinding? = null
@@ -31,6 +33,7 @@ class WaiterCartFragment : Fragment() {
 
     private lateinit var ownerId: String
     private lateinit var userId: String
+    private lateinit var CustomizedRecipe: String
     private var orderListener: ListenerRegistration? = null
     private val progressDialog by lazy { createProgressDialog() }
 
@@ -45,8 +48,8 @@ class WaiterCartFragment : Fragment() {
         preferences = requireContext().getSharedPreferences("Details", Context.MODE_PRIVATE)
         userId = preferences.getString("userId", "") ?: ""
         ownerId = preferences.getString("ownerId", "") ?: ""
-
-
+        preferences=requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        CustomizedRecipe = preferences.getString("itemCustomizedRecipe", "") ?: ""
         setupRecyclerView()
         setupListeners()
         fetchCartItemsFromFirestore()
@@ -57,6 +60,7 @@ class WaiterCartFragment : Fragment() {
         setCancelable(false)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun fetchCartItemsFromFirestore() {
         firestore.collection("Restaurants")
             .document(ownerId)
@@ -71,7 +75,8 @@ class WaiterCartFragment : Fragment() {
                     val name = doc.getString("itemName").orEmpty()
                     val price = doc.getString("itemPrice").orEmpty()
                     val quantity = doc.getLong("quantity")?.toInt() ?: 1
-                    arrayList.add(WaiterCartStructure(id, name, price, quantity))
+                    val recipe = CustomizedRecipe
+                    arrayList.add(WaiterCartStructure(id, name, price, quantity,recipe))
                 }
                 waiterAdapter.notifyDataSetChanged()
                 updatePlaceOrderText()
@@ -150,6 +155,7 @@ class WaiterCartFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updatePlaceOrderText() {
         val total = arrayList.sumOf { it.itemPrice.toDoubleOrNull() ?: 0.0 }
         binding.WaiterCartPlaceOrderButton.text = "Proceed with: %.2f".format(total)
@@ -218,6 +224,7 @@ class WaiterCartFragment : Fragment() {
         })
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun clearCart() {
         // clear cart subcollection
         val cartRef = firestore.collection("Restaurants")

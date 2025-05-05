@@ -20,7 +20,7 @@ class WaiterCartAdapter(
         private val itemQuantity: TextView = itemView.findViewById(R.id.cartItemQuantity)
         private val increaseButton: ImageButton = itemView.findViewById(R.id.btnIncrease)
         private val decreaseButton: ImageButton = itemView.findViewById(R.id.btnDecrease)
-
+        private val itemRecipe: TextView = itemView.findViewById(R.id.CartItemRecipe)
         fun bind(item: WaiterCartStructure) {
             itemName.text = item.itemName
 
@@ -28,9 +28,8 @@ class WaiterCartAdapter(
             val basePrice = item.itemPrice.toDoubleOrNull() ?: 0.0
             val totalPrice = basePrice * item.quantity
             itemPrice.text = totalPrice.toString()
-
             itemQuantity.text = item.quantity.toString()
-
+            itemRecipe.text = item.itemRecipe
             increaseButton.setOnClickListener { onIncreaseClicked(adapterPosition) }
             decreaseButton.setOnClickListener { onDecreaseClicked(adapterPosition) }
         }

@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import com.example.foodnexus.R
 import com.example.foodnexus.Structures.WaiterMenuStructure
 import com.example.foodnexus.Utils
 import com.example.foodnexus.databinding.FragmentWaiterMenuBinding
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 class WaiterMenuFragment : Fragment() {
@@ -25,7 +28,6 @@ class WaiterMenuFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var preferences: SharedPreferences
     private lateinit var loadingDialog: Dialog
-
     private lateinit var adapter: WaiterMenuAdapter
     private val menuItems = ArrayList<WaiterMenuStructure>()
 
