@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragements.SignUpFragement">
+
+    <LinearLayout
+        android:id="@+id/SignUpFragmentLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg"
+        />
+
+    <ImageView
+        android:id="@+id/SignUpFragmentImgViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_100sdp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        />
+
+    <TextView
+        android:id="@+id/SignUpFragmentTvSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/SignUpFragmentLinearLayout"
+        />
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/SignUpFragmentTvSignUp"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/SignUpFragmentTvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"/>
+        <EditText
+            android:id="@+id/SignUpFragmentEtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Name"
+            android:background="@drawable/et_bg"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textEmailAddress"
+            android:layout_below="@+id/SignUpFragmentTvName"/>
+
+
+        <TextView
+            android:id="@+id/SignUpFragmentTvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_below="@id/SignUpFragmentEtName"/>
+        <EditText
+            android:id="@+id/SignUpFragmentEtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Email"
+            android:background="@drawable/et_bg"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textEmailAddress"
+            android:layout_below="@+id/SignUpFragmentTvEmail"/>
+        <TextView
+            android:id="@+id/SignUpFragmentTvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password:"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_below="@+id/SignUpFragmentEtEmail"/>
+        <EditText
+            android:id="@+id/SignUpFragmentEtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Password"
+            android:background="@drawable/et_bg"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textPassword"
+            android:layout_below="@+id/SignUpFragmentTvPassword"/>
+
+        <TextView
+            android:id="@+id/SignUpFragmentTvConfirmPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm Password:"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_below="@+id/SignUpFragmentEtPassword"/>
+        <EditText
+            android:id="@+id/SignUpFragmentEtConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Re-Enter Password"
+            android:background="@drawable/et_bg"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textPassword"
+            android:layout_below="@+id/SignUpFragmentTvConfirmPassword"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/SignUpFragmentBtnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:backgroundTint="@color/red"
+            android:layout_below="@id/SignUpFragmentEtConfirmPassword"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16ssp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/SignUpFragmentBtnSignUp"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already Have an account?"
+                android:textSize="@dimen/_12ssp" />
+            <TextView
+                android:id="@+id/SignUpFragmentTvLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Login"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/blue"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

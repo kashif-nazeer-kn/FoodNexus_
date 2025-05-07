@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragements.SignUpFragement">
+    <LinearLayout
+        android:id="@+id/LoginFragmentLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg"/>
+
+    <ImageView
+        android:id="@+id/LoginFragmentImgViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        android:layout_marginTop="@dimen/_20sdp"/>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/LoginFragmentLinearLayout"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/LoginFragmentTvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/LoginFragmentTvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_below="@id/LoginFragmentTvLogin"/>
+        <EditText
+            android:id="@+id/LoginFragmentEtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Email"
+            android:background="@drawable/et_bg"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textEmailAddress"
+            android:layout_below="@+id/LoginFragmentTvEmail"/>
+        <TextView
+            android:id="@+id/LoginFragmentTvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password:"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_below="@+id/LoginFragmentEtEmail"/>
+        <EditText
+            android:id="@+id/LoginFragmentEtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Password"
+            android:background="@drawable/et_bg"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textPassword"
+            android:layout_below="@+id/LoginFragmentTvPassword"/>
+
+        <TextView
+            android:id="@+id/LoginFragmentTvForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forget Password?"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/blue"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_below="@+id/LoginFragmentEtPassword"
+            android:layout_alignParentEnd="true"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/LoginFragmentBtnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:backgroundTint="@color/red"
+            android:layout_below="@id/LoginFragmentTvForgetPassword"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16ssp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/LoginFragmentBtnLogin"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't Have an account?"
+                android:textSize="@dimen/_12ssp" />
+            <TextView
+                android:id="@+id/LoginFragmentTvSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" SignUp"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/blue"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>
