@@ -54,7 +54,15 @@
             android:textSize="@dimen/_14ssp"
             android:textColor="@android:color/holo_green_dark"
             app:layout_constraintStart_toStartOf="@id/cartItemName"
-            app:layout_constraintTop_toBottomOf="@id/cartItemName" />
+            app:layout_constraintTop_toBottomOf="@id/CustomizeRecipe" />
+        <TextView
+            android:id="@+id/CustomizeRecipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/cartItemName"
+            app:layout_constraintStart_toStartOf="@+id/cartItemName"
+            android:text=""
+            android:textSize="@dimen/_13sdp"/>
         <TextView
             android:id="@+id/cartItemPrice"
             android:layout_width="wrap_content"
@@ -63,7 +71,7 @@
             android:textSize="@dimen/_14ssp"
             android:textColor="@android:color/holo_green_dark"
             app:layout_constraintStart_toEndOf="@id/Price"
-            app:layout_constraintTop_toBottomOf="@id/cartItemName" />
+            app:layout_constraintTop_toBottomOf="@id/CustomizeRecipe" />
         <LinearLayout
             android:id="@+id/quantityLayout"
             android:layout_width="wrap_content"
@@ -98,21 +106,8 @@
                 android:background="@drawable/qty_btn_bg"
                 android:src="@drawable/baseline_add_24"
                 android:contentDescription="Increase Quantity" />
+
         </LinearLayout>
-        <RelativeLayout
-            android:id="@+id/ItemRecipeLayout"
-            android:layout_width="@dimen/_110sdp"
-            android:layout_height="@dimen/_30sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/bg_relative_layout"
-            tools:ignore="MissingConstraints">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/CartItemRecipe"
-                android:text=""
-                android:padding="@dimen/_3sdp"
-                />
-        </RelativeLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

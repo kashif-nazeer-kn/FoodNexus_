@@ -52,14 +52,8 @@ class WaiterMenuAdapter(
                 setContentView(R.layout.cutomize_order_layout)
                 window?.setBackgroundDrawableResource(android.R.color.transparent)
                 setCancelable(true)
-                val etItemName = findViewById<TextView>(R.id.CustomizeOrderEtItemName)
-                val etItemRecipe = findViewById<TextView>(R.id.CustomizeOrderEtItemRecipie)
                 val etCustomizedRecipe = findViewById<TextView>(R.id.CustomizeOrderEtCustomizedRecipie)
                 val btnAddToCart = findViewById<MaterialButton>(R.id.CustomizeOrderBtnAddToCart)
-                val price = findViewById<TextView>(R.id.Price)
-                etItemName.text = menuItem.itemName
-                etItemRecipe.text = menuItem.itemRecipe
-                price.text = menuItem.itemPrice
                 show()
                 btnAddToCart.setOnClickListener {
                     customizeRecipe=etCustomizedRecipe.text.toString().trim()

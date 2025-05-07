@@ -21,18 +21,28 @@
             android:textStyle="bold"
             android:textSize="16sp"/>
 
+
         <TextView
-            android:id="@+id/textOrderTotal"
+            android:id="@+id/CustomizeRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total: PKR 500.00"
-            android:layout_marginTop="4dp"/>
+            android:textSize="@dimen/_12sdp"
+            android:text="customize Recipe"
+            android:layout_marginTop="@dimen/_3sdp"/>
+
+
 
         <TextView
             android:id="@+id/textOrderItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3 items"
+            android:layout_marginTop="4dp"/>
+        <TextView
+            android:id="@+id/textOrderTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: PKR 500.00"
             android:layout_marginTop="4dp"/>
 
         <LinearLayout
@@ -46,14 +56,16 @@
                 android:id="@+id/btnReject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reject"/>
+                android:text="Reject"
+                android:backgroundTint="@color/black"/>
 
             <Button
                 android:id="@+id/btnAccept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Accept"
-                android:layout_marginStart="12dp"/>
+                android:layout_marginStart="12dp"
+                android:backgroundTint="@color/black"/>
 
         </LinearLayout>
     </LinearLayout>

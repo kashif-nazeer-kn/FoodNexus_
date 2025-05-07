@@ -51,27 +51,35 @@ class ChefOrderReceivingFragment : Fragment() {
             .document(ownerId)
             .collection("Pending Orders")
             .whereEqualTo("status", "pending")
-            .get()
-            .addOnSuccessListener { snapshot: QuerySnapshot ->
-                orders.clear()
-                for (doc in snapshot.documents) {
-                    val id = doc.id
-                    val total = doc.getString("totalPrice").orEmpty()
-                    val items = (doc.get("items") as? List<Map<String, Any>>)?.map { m ->
-                        ChefOrderStructure.Item(
-                            m["itemName"].toString(),
-                            (m["quantity"] as? Long)?.toInt() ?: 0
-                        )
-                    }.orEmpty()
-
-                    orders.add(ChefOrderStructure(id, total, items))
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Toast.makeText(requireContext(), "Error loading orders", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
                 }
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed to load orders", Toast.LENGTH_SHORT).show()
+
+                if (snapshot != null && !snapshot.isEmpty) {
+                    orders.clear()
+                    for (doc in snapshot.documents) {
+                        val id = doc.id
+                        val total = doc.getString("totalPrice").orEmpty()
+                        val items = (doc.get("items") as? List<Map<String, Any>>)?.map { m ->
+                            ChefOrderStructure.Item(
+                                m["itemName"].toString(),
+                                m["customizeRecipe"].toString(),
+                                (m["quantity"] as? Long)?.toInt() ?: 0
+                            )
+                        }.orEmpty()
+
+                        orders.add(ChefOrderStructure(id, total, items))
+                    }
+                    adapter.notifyDataSetChanged()
+                } else {
+                    orders.clear()
+                    adapter.notifyDataSetChanged()
+                }
             }
     }
+
 
     private fun changeStatus(orderId: String, newStatus: String) {
         firestore.collection("Restaurants")

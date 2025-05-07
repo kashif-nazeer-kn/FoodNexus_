@@ -4,5 +4,5 @@ data class ChefOrderStructure(
     val total: String,
     val items: List<Item>
 ) {
-    data class Item(val name: String, val quantity: Int)
+    data class Item(val name: String,val customizeRecipe:String, val quantity: Int)
 }
