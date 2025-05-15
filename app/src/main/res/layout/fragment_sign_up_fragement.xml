@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
         android:orientation="vertical"
-        android:background="@drawable/layout_bg"
+        android:background="@color/primaryColor"
         />
 
     <ImageView
@@ -50,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name:"
+            android:textStyle="bold"
             android:textSize="@dimen/_14ssp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_5sdp"/>
@@ -58,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Your Name"
-            android:background="@drawable/et_bg"
+            android:background="@drawable/bg_edit_text"
             android:padding="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:inputType="textEmailAddress"
@@ -69,6 +70,7 @@
             android:id="@+id/SignUpFragmentTvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Email:"
             android:textSize="@dimen/_14ssp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -79,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Your Email"
-            android:background="@drawable/et_bg"
+            android:background="@drawable/bg_edit_text"
             android:padding="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:inputType="textEmailAddress"
@@ -89,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password:"
+            android:textStyle="bold"
             android:textSize="@dimen/_14ssp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_5sdp"
@@ -98,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Your Password"
-            android:background="@drawable/et_bg"
+            android:background="@drawable/bg_edit_text"
             android:padding="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:inputType="textPassword"
@@ -110,6 +113,7 @@
             android:layout_height="wrap_content"
             android:text="Confirm Password:"
             android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_below="@+id/SignUpFragmentEtPassword"/>
@@ -118,7 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Re-Enter Password"
-            android:background="@drawable/et_bg"
+            android:background="@drawable/bg_edit_text"
             android:padding="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:inputType="textPassword"
@@ -128,7 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign Up"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/primaryColor"
             android:layout_below="@id/SignUpFragmentEtConfirmPassword"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_16ssp"
@@ -152,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:text=" Login"
                 android:textSize="@dimen/_12ssp"
-                android:textColor="@color/blue"
+                android:textColor="@color/primaryColor"
                 />
 
         </LinearLayout>

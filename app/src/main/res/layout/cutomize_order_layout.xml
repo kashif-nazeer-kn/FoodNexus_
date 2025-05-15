@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/_260sdp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/_18sdp">
+    app:cardCornerRadius="@dimen/_3sdp">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:background="@color/primaryColor">
         <TextView
             android:id="@+id/title"
@@ -36,8 +36,16 @@
             android:layout_below="@id/CustomizeOrderEtCustomizedRecipie"
             android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/_15sdp"
-            android:backgroundTint="@color/black"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:elevation="15dp"
+            android:translationZ="8dp"
+            app:cornerRadius="12dp"
+            app:strokeWidth="4dp"
+            app:strokeColor="@color/black"
+            android:backgroundTint="@android:color/white"
             android:text="Add To Cart"
+
             />
 
     </RelativeLayout>

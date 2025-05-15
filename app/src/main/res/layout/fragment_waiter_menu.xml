@@ -15,15 +15,12 @@
         android:gravity="center">
 
         <!-- Logo Card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
-            app:cardCornerRadius="@dimen/_100sdp">
+
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="250sp"
+                android:layout_height="250sp"
                 android:src="@drawable/logo"/>
-        </androidx.cardview.widget.CardView>
+
 
         <!-- Restaurant Name -->
         <TextView

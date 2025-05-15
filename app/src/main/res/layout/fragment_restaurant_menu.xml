@@ -15,15 +15,12 @@
         android:gravity="center">
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
-            app:cardCornerRadius="@dimen/_100sdp">
+
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="300sp"
+                android:layout_height="250sp"
                 android:src="@drawable/logo"/>
-        </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/RestaurantMenuTvName"
             android:layout_width="@dimen/_150sdp"
@@ -47,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:src="@drawable/menu"
+        android:backgroundTint=""
         android:background="@android:color/transparent"
         android:padding="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"

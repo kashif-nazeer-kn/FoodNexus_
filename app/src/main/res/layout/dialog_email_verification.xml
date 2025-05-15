@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="30dp">
         <RelativeLayout
@@ -19,8 +19,9 @@
             android:text="Verify Email"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:textSize="18sp"
-            android:textColor="@color/red"
+            android:textSize="22sp"
+            android:layout_marginBottom="15sp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             />
             <TextView
@@ -40,7 +41,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
                 android:text="Resend Email"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/primaryColor"
                 />
 
 

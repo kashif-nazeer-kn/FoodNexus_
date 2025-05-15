@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
         android:orientation="vertical"
-        android:background="@drawable/layout_bg"/>
+        android:background="@color/primaryColor"/>
 
     <ImageView
         android:id="@+id/LoginFragmentImgViewLogo"
@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Email:"
             android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_below="@id/LoginFragmentTvLogin"/>
@@ -52,9 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Your Email"
-            android:background="@drawable/et_bg"
+            android:background="@drawable/bg_edit_text"
             android:padding="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="10dp"
             android:inputType="textEmailAddress"
             android:layout_below="@+id/LoginFragmentTvEmail"/>
         <TextView
@@ -63,7 +64,8 @@
             android:layout_height="wrap_content"
             android:text="Password:"
             android:textSize="@dimen/_14ssp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_below="@+id/LoginFragmentEtEmail"/>
         <EditText
@@ -71,9 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Your Password"
-            android:background="@drawable/et_bg"
+            android:background="@drawable/bg_edit_text"
             android:padding="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="10dp"
             android:inputType="textPassword"
             android:layout_below="@+id/LoginFragmentTvPassword"/>
 
@@ -83,7 +85,7 @@
             android:layout_height="wrap_content"
             android:text="Forget Password?"
             android:textSize="@dimen/_12ssp"
-            android:textColor="@color/blue"
+            android:textColor="@color/primaryColor"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_below="@+id/LoginFragmentEtPassword"
@@ -93,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/primaryColor"
             android:layout_below="@id/LoginFragmentTvForgetPassword"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_16ssp"
@@ -116,8 +118,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" SignUp"
+                android:layout_marginStart="5dp"
                 android:textSize="@dimen/_12ssp"
-                android:textColor="@color/blue"
+                android:textColor="@color/primaryColor"
                 />
 
         </LinearLayout>
